@@ -1,12 +1,13 @@
 import express, { Router } from "express";
 import path from "path";
-const compression = require("compression");
 
 interface Options {
   port: number;
   public_path?: string;
   routes: Router;
 }
+
+const compression = require("compression");
 
 export class Server {
   private app = express();
