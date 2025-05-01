@@ -11,7 +11,7 @@ function main() {
     port: envs.PORT,
     public_path: envs.PUBLIC_PATH,
     routes: AppRoutes.routes(),
-  });
+  }); // Crea una nueva instancia de Server con las opciones especificadas
 
-  server.start();
+  server.start(); // Inicia el servidor
 }

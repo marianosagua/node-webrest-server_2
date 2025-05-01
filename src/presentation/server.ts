@@ -7,7 +7,7 @@ interface Options {
   routes: Router;
 }
 
-const compression = require("compression");
+const compression = require("compression"); // Middleware para comprimir la respuesta HTTP
 
 export class Server {
   private app = express();
@@ -20,31 +20,25 @@ export class Server {
     this.port = port;
     this.publicPath = public_path;
     this.routes = routes;
-  }
+  } // Constructor de la clase Server que recibe opciones como el puerto, la ruta pública y las rutas de la API
 
   async start() {
-    //* Middlewares
+    // Configuración de la aplicación Express
     this.app.use(express.json()); // Maneja datos JSON en solicitudes
     this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
     this.app.use(compression()); // Aumenta la velocidad de respuesta de la peticion
-
-    //* Public Folder
-    this.app.use(express.static(this.publicPath));
-
-    //* Routes
-    this.app.use(this.routes);
-
-    //* SPA (Single Page Application)
+    this.app.use(express.static(this.publicPath)); // Sirve archivos estáticos desde la carpeta public
+    this.app.use(this.routes); // Rutas de la API
     this.app.use("*", (req, res) => {
       const indexPath = path.join(
         __dirname + `../../../${this.publicPath}/index.html`
-      );
+      ); // Ruta del archivo index.html
 
-      res.sendFile(indexPath);
-    });
+      res.sendFile(indexPath); // Envía el archivo index.html como respuesta
+    }); // Sirve el index.html para cualquier otra ruta
 
     this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
-    });
+    }); // Inicia el servidor en el puerto especificado
   }
 }
