@@ -11,6 +11,13 @@ export class TodosController {
     return res.json(todos);
   };
 
+  /**
+   * @param req - Express request object
+   * @param res - Express response object
+   * @returns {Promise<void>} - A promise that resolves to void
+   * @throws {Error} - Throws an error if the todo doesn't exist
+   */
+
   public getTodoById = async (req: Request, res: Response) => {
     const id = +req.params.id;
 
